@@ -10,4 +10,14 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: main.tex
-
+      - name: Check pdf file
+        run: |
+          file main.pdf | grep -q ' PDF '
+      - name: Upload file to repository
+        run: |
+          git config --global user.name "sehnot"
+          git config --global user.email "11140113+sehnot@users.noreply.github.com"
+          git add main.pdf
+          git commit -m "updated pdf file"
+          git push
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
