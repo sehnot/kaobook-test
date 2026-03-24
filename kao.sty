@@ -623,7 +623,7 @@
 % Detect whether there is a caption in the current environment by switching the kaocaption toggle when \caption is called. If there is no caption, reset the floatsetup. Without this fix, the floatrow package will align the environment to the main text if there is a caption, but to the margin if there is no caption.
 \newtoggle{kaocaption}
 \AtBeginEnvironment{figure}{%
-	\let\oldcaption\caption%
+	\NewCommandCopy\oldcaption\caption%
 	\RenewDocumentCommand{\caption}{s o m}{%
 		\IfBooleanTF{#1}{%
 			\oldcaption*{#3}%
@@ -646,7 +646,7 @@
 	\togglefalse{kaocaption}%
 }
 \AtBeginEnvironment{table}{%
-	\let\oldcaption\caption%
+	\NewCommandCopy\oldcaption\caption%
 	\RenewDocumentCommand{\caption}{s o m}{%
 		\IfBooleanTF{#1}{%
 			\oldcaption*{#3}%
