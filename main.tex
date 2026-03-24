@@ -28,6 +28,9 @@
 % Load the package for hyperreferences
 \usepackage{kaorefs}
 
+\usepackage{helvet}       % Helvetica als \textsf für die Titelseite
+\usetikzlibrary{calc}     % Koordinateninterpolation für TikZ
+
 \graphicspath{{figures/}{./}} % Paths where images are looked for
 
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
@@ -76,6 +79,42 @@
 
 	\textbf{Publisher} \\
 	First printed in May 2019 by \@publishers
+}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	CUSTOM TITLE PAGE (Eisvogel-Style)
+%----------------------------------------------------------------------------------------
+
+\definecolor{TitleRule}{HTML}{360049}
+
+\makeatletter
+\renewcommand*{\maketitlepage}{%
+  \begin{titlepage}%
+    \newgeometry{top=2cm, right=4cm, bottom=3cm, left=4cm}%
+    \begin{tikzpicture}[remember picture, overlay]%
+      \node[inner sep=0pt] at (current page.center){%
+        \includegraphics[width=\paperwidth, height=\paperheight]{backgrounds/background.pdf}%
+      };%
+    \end{tikzpicture}%
+    \newcommand{\colorRule}[3][black]{\textcolor[HTML]{##1}{\rule{##2}{##3}}}%
+    \begin{flushleft}%
+      \color{white}%
+      \noindent\\[-1em]%
+      \makebox[0pt][l]{\colorRule[360049]{1.3\textwidth}{4pt}}%
+      \par\noindent%
+      {%
+        \setstretch{2}%
+        \vfill%
+        \vskip -8em%
+        \noindent{\huge\textbf{\textsf{\@title}}}\par%
+        \vskip 2em%
+        \noindent{\Large\textsf{\@author}\quad\textsf{\@date}}\par%
+        \vfill%
+      }%
+    \end{flushleft}%
+  \end{titlepage}%
+  \restoregeometry%
 }
 \makeatother
 
