@@ -30,7 +30,12 @@
 
 \usepackage{helvet}       % Helvetica als \textsf für die Titelseite
 \usetikzlibrary{calc}     % Koordinateninterpolation für TikZ
-\PassOptionsToPackage{floatrow=false}{scrhack} % Fix: floatrowbytocbasic conflicts with kaobook on KOMA 3.49+
+% Fix: scrhack 3.44+ (KOMA 3.49) loads floatrowbytocbasic unconditionally before processing options,
+% so floatrow=false arrives too late. Instead, mark floatrowbytocbasic as already loaded so
+% scrhack's \RequirePackage{floatrowbytocbasic} becomes a no-op.
+\makeatletter
+\@namedef{ver@floatrowbytocbasic.sty}{9999/12/31 (prevented)}
+\makeatother
 
 \graphicspath{{figures/}{./}} % Paths where images are looked for
 
